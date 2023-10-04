@@ -3,7 +3,7 @@ import styles from './page.module.scss'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 
-export default function Detail({params}: { params: { slug: string } }) {
+export default function Detail({params}: { params: { slug: string, id: string } }) {
     const router = useRouter();
     const [title, setTitle] = useState<string>("");
     const [text, setText] = useState<string>("");

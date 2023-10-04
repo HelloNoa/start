@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {ConfirmModal} from "@/component/modal/confirmModal";
 
-export default function Detail({ params }: { params: { slug: string } }) {
+export default function Detail({ params }: { params: { slug: string, id: string } }) {
     const [isopen,setIsopen] = useState<boolean>(false);
     const router = useRouter();
     const [title,setTitle] = useState<string>("");
