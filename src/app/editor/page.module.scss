@@ -33,7 +33,7 @@ div.detail {
 					border-right: 1px solid white;
 				}
 
-				textarea{
+				textarea, p {
 					width: 90%;
 					height: 100%;
 				}
@@ -68,11 +68,12 @@ div.detail {
 				border-bottom: 1px solid white;
 			}
 
-			textarea{
+			textarea, p {
 				width: 100%;
 				height: 90%;
 				border-bottom: 1px solid white;
 				background: black;
+				overflow-y: scroll;
 			}
 		}
 	}
