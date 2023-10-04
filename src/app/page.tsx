@@ -1,9 +1,11 @@
 'use client';
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import {useEffect, useState} from "react";
 
 export default function Home() {
+    const startTime = 1696274405648;
     const [list, setList] = useState<any[]>([]);
+    const [time, setTime] = useState<string>();
     useEffect(()=>{
         (async ()=>{
             await fetch("https://list-dyvsvnnkwq-uc.a.run.app/")
@@ -12,9 +14,16 @@ export default function Home() {
                     setList(e.data as any[]);
                 });
         })();
-    },[])
+        Timer();
+    },[]);
+    const Timer = ()=>{
+        const fixTime = Math.floor((new Date().getTime()-startTime)*0.001)
+        setTime(fixTime.toLocaleString());
+        setTimeout(Timer,10);
+    }
     return (
         <main className={styles.main}>
+            <h1>{time}</h1>
             <ul>
                 {list.map(e => {
                     return <li key={e.key}><a href={`/detail/${e.key}`}>{e.title}</a></li>
