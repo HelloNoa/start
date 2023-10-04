@@ -61,6 +61,10 @@ export default function Detail() {
                         onChange={(e)=>setBackup("walk",e.currentTarget.value)} value={walk}
                     ></textarea>
                 </div>
+                <div>
+                    <a href="">뒤로가기</a>
+                    <a href="">저장</a>
+                </div>
             </section>
         </div>
     )

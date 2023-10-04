@@ -1,0 +1,37 @@
+{
+  "apiKey": "AIzaSyBDTmEs-GTOVt1gXLF0A1rLOKHuRtZ3wCY",
+  "authDomain": "packman-1fbaf.firebaseapp.com",
+  "databaseURL": "https://packman-1fbaf.firebaseio.com",
+  "projectId": "packman-1fbaf",
+  "storageBucket": "packman-1fbaf.appspot.com",
+  "messagingSenderId": "405354843025",
+  "appId": "1:405354843025:web:4828f47aab704005242830",
+  "hosting": {
+    "public": "Public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**",
+      "function": "app1"
+    }]
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+div.ConfirmModal {
+	position: absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%);
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	border: 1px solid white;
+	justify-content: center;
+	align-items: center;
+	background: black;
+	p{
+		padding:10vw 4vw;
+	}
+	a{
+		display: inline-block;
+		text-align: center;
+		width: 20vw;
+		height: 20vw;
+	}
+}
