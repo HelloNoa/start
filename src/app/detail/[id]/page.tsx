@@ -13,16 +13,18 @@ export default function Detail({params}: { params: { slug: string, id: string } 
     const [comment, setComment] = useState<string>("");
     const [rain, setRain] = useState<string>("");
     const [walk, setWalk] = useState<string>("");
+    const login = useLogin();
     useEffect(() => {
         const data = (async () => {
-            await useLogin({no: () => {
-                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
-                    router.replace('/login');
-                }
-            });
+            if (await login) {
+
+            } else {
+                alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                router.replace('/login');
+            }
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
                 headers: new Headers({
-                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
+                    'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
                 })
             }).then(e => e.json()).then(e => {
                 e = e.data;
@@ -33,7 +35,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                 setWalk(e.walk);
             });
         })()
-    }, []);
+    }, [login]);
 
     return (
         <div className={styles.detail}>
@@ -72,7 +74,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
             {isopen && <ConfirmModal ok={async () => {
                 const data = await fetch(`https://deleteItem-dyvsvnnkwq-uc.a.run.app?id=${params.id}`, {
                     headers: new Headers({
-                        'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
+                        'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
                     })
                 });
                 if (data) {

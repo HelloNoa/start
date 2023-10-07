@@ -11,13 +11,15 @@ export default function Detail() {
     const [comment, setComment] = useState<string>("");
     const [rain, setRain] = useState<string>("");
     const [walk, setWalk] = useState<string>("");
+    const login = useLogin();
     useEffect(() => {
         (async ()=>{
-            await useLogin({no: () => {
-                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
-                    router.replace('/login');
-                }
-            });
+            if (await login) {
+
+            } else {
+                alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                router.replace('/login');
+            }
         })()
         const title = window.localStorage.getItem("title") as string ?? "";
         const text = window.localStorage.getItem("text") as string ?? "";
@@ -87,7 +89,7 @@ export default function Detail() {
                         try{
                             await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
                                 headers: new Headers({
-                                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
+                                    'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
                                 })
                             })
                             window.localStorage.setItem("title", "");

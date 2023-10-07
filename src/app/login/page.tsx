@@ -7,22 +7,23 @@ import {useRouter} from "next/navigation";
 export default function Login() {
     const router = useRouter();
     const [pw, setPW] = useState<string>("");
+    const login = useLogin();
     return (
         <main className={styles.main}>
             <input onChange={(e) => {
                 setPW(e.currentTarget.value);
             }} value={pw}></input>
             <a onClick={async () => {
-                localStorage.setItem("Authorization", pw as string);
-                await useLogin({
-                    ok: () => {
-                        alert("환영해요.");
-                        router.push('/');
-                    }, no: () => {
-                        alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
-                        router.refresh();
-                    }
-                });
+                if (typeof window !== 'undefined') {
+                    window.localStorage.setItem("Authorization", pw as string);
+                }
+                if (await login) {
+                    alert("환영해요.");
+                    router.push('/');
+                } else {
+                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                    router.refresh();
+                }
             }}>인증</a>
         </main>
     )
