@@ -20,10 +20,12 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                 alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
                 router.replace('/login');
             }
+            const headers = new Headers();
+            if (typeof window !== 'undefined') {
+                headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+            }
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
-                headers: new Headers({
-                    'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
-                })
+                headers
             })
                 .then(e => e.json()).then(e => {
                     e = e.data;
@@ -94,10 +96,12 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                             rain,
                             walk,
                         };
+                        const headers = new Headers();
+                        if (typeof window !== 'undefined') {
+                            headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+                        }
                         await fetch(`https://modify-dyvsvnnkwq-uc.a.run.app?key=${params.id}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
-                            headers: new Headers({
-                                'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
-                            })
+                            headers
                         })
                             .then(e => e.json()).then(e => {
                                 console.log(e)

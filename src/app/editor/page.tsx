@@ -87,10 +87,12 @@ export default function Detail() {
                     <br/>
                     <a onClick={async () => {
                         try{
+                            const headers = new Headers();
+                            if (typeof window !== 'undefined') {
+                                headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+                            }
                             await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
-                                headers: new Headers({
-                                    'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
-                                })
+                                headers
                             })
                             window.localStorage.setItem("title", "");
                             window.localStorage.setItem("text", "");

@@ -22,10 +22,12 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                 alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
                 router.replace('/login');
             }
+            const headers = new Headers();
+            if (typeof window !== 'undefined') {
+                headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+            }
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
-                headers: new Headers({
-                    'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
-                })
+                headers
             }).then(e => e.json()).then(e => {
                 e = e.data;
                 setTitle(e.title);
@@ -72,10 +74,12 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                 </div>
             </section>
             {isopen && <ConfirmModal ok={async () => {
+                const headers = new Headers();
+                if (typeof window !== 'undefined') {
+                    headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+                }
                 const data = await fetch(`https://deleteItem-dyvsvnnkwq-uc.a.run.app?id=${params.id}`, {
-                    headers: new Headers({
-                        'AuthorizationCode': window.localStorage.getItem("AuthorizationCode") ?? ""
-                    })
+                    headers
                 });
                 if (data) {
                     router.back();
