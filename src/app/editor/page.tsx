@@ -79,8 +79,7 @@ export default function Detail() {
                         try{
                             await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
                                 headers: new Headers({
-                                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
                                 })
                             })
                             window.localStorage.setItem("title", "");

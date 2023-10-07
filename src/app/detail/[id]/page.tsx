@@ -16,8 +16,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
         const data = (async () => {
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
                 headers: new Headers({
-                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
                 })
             }).then(e => e.json()).then(e => {
                 e = e.data;
@@ -67,8 +66,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
             {isopen && <ConfirmModal ok={async () => {
                 const data = await fetch(`https://deleteItem-dyvsvnnkwq-uc.a.run.app?id=${params.id}`, {
                     headers: new Headers({
-                        'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
                     })
                 });
                 if (data) {

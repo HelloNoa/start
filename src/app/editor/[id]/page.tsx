@@ -14,8 +14,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
         const data = (async () => {
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
                 headers: new Headers({
-                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
                 })
             })
                 .then(e => e.json()).then(e => {
@@ -88,8 +87,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                         };
                         await fetch(`https://modify-dyvsvnnkwq-uc.a.run.app?key=${params.id}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
                             headers: new Headers({
-                                'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                                'Content-Type': 'application/x-www-form-urlencoded'
+                                'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
                             })
                         })
                             .then(e => e.json()).then(e => {

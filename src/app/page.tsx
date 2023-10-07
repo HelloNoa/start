@@ -9,10 +9,9 @@ export default function Home() {
     useEffect(()=>{
         (async ()=>{
             await fetch("https://list-dyvsvnnkwq-uc.a.run.app/", {
-                headers: new Headers({
-                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
+                headers:{
+                    'Authorizationcode': localStorage.getItem("AuthorizationCode") ?? ""
+                }
             })
                 .then(e=>e.json()).then(e=>{
                     console.log(e.data);
