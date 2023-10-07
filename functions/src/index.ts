@@ -46,8 +46,14 @@ type item = {
 }
 export const deleteItem = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    if ((await lazyGlobal) !== req.headers.authorizationCode) {
-        res.status(400).send("go away");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
     }
     logger.info("Hello delete!", {structuredData: true});
     const id = req.query.id as string;
@@ -60,8 +66,14 @@ export const deleteItem = onRequest(async (req, res) => {
 });
 export const create = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    if ((await lazyGlobal) !== req.headers.authorizationCode) {
-        res.status(400).send("go away");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
     }
     logger.info("Hello create!", {structuredData: true});
     const query: item = req.query as item;
@@ -74,8 +86,14 @@ export const create = onRequest(async (req, res) => {
 });
 export const modify = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    if ((await lazyGlobal) !== req.headers.authorizationCode) {
-        res.status(400).send("go away");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
     }
     logger.info("Hello modify!", {structuredData: true});
     const query: item = req.query as item;
@@ -88,8 +106,14 @@ export const modify = onRequest(async (req, res) => {
 });
 export const detail = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    if ((await lazyGlobal) !== req.headers.authorizationCode) {
-        res.status(400).send("go away");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
     }
     logger.info("Hello detail!", {structuredData: true});
     const id = req.query.id as string ?? "0";
@@ -106,11 +130,15 @@ export const detail = onRequest(async (req, res) => {
 });
 export const list = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    // if ((await lazyGlobal) !== req.headers.Authorizationcode) {
-    //     // res.status(400).send("go away");
-    //     res.send(req.headers.Authorizationcode);
-    // }
-    // res.json(req.headers.authorizationcode);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
+    }
     logger.info("Hello list!", {structuredData: true});
     let length = 0;
     const data: { key: string, title: string }[] = [];
@@ -133,6 +161,20 @@ export const list = onRequest(async (req, res) => {
     });
 });
 
+export const login = onRequest(async (req, res) => {
+    res.set("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if ((await lazyGlobal) !== req.headers.authorization) {
+        res.status(201).send("go away");
+    }
+    res.send("ok");
+    logger.info("Hello logins!", {structuredData: true});
+});
 export const helloWorld = onRequest(async (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello logs!", {structuredData: true});

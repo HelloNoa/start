@@ -2,6 +2,7 @@
 import styles from './page.module.scss'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
+import {useLogin} from "@/hook/useLogin";
 
 export default function Detail() {
     const router = useRouter();
@@ -11,6 +12,13 @@ export default function Detail() {
     const [rain, setRain] = useState<string>("");
     const [walk, setWalk] = useState<string>("");
     useEffect(() => {
+        (async ()=>{
+            await useLogin({no: () => {
+                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                    router.replace('/login');
+                }
+            });
+        })()
         const title = window.localStorage.getItem("title") as string ?? "";
         const text = window.localStorage.getItem("text") as string ?? "";
         const comment = window.localStorage.getItem("comment") as string ?? "";

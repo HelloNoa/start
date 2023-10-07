@@ -1,17 +1,25 @@
 'use client';
 import styles from './page.module.scss'
 import {useEffect, useState} from "react";
+import {useLogin} from "@/hook/useLogin";
+import {useRouter} from "next/navigation";
 
 export default function Home() {
+    const router = useRouter();
     const startTime = 1696274405648;
     const [list, setList] = useState<any[]>([]);
     const [time, setTime] = useState<string>();
     useEffect(()=>{
         (async ()=>{
-            await fetch("https://list-dyvsvnnkwq-uc.a.run.app/", {
-                headers:{
-                    'Authorizationcode': localStorage.getItem("AuthorizationCode") ?? ""
+            await useLogin({no: () => {
+                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                    router.replace('/login');
                 }
+            });
+            const headers = new Headers();
+            headers.append('Authorization', localStorage.getItem("Authorization") ?? "");
+            await fetch("https://list-dyvsvnnkwq-uc.a.run.app/", {
+                headers
             })
                 .then(e=>e.json()).then(e=>{
                     console.log(e.data);

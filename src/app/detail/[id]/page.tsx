@@ -3,6 +3,7 @@ import styles from './page.module.scss'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {ConfirmModal} from "@/component/modal/confirmModal";
+import {useLogin} from "@/hook/useLogin";
 
 export default function Detail({params}: { params: { slug: string, id: string } }) {
     const [isopen, setIsopen] = useState<boolean>(false);
@@ -14,6 +15,11 @@ export default function Detail({params}: { params: { slug: string, id: string } 
     const [walk, setWalk] = useState<string>("");
     useEffect(() => {
         const data = (async () => {
+            await useLogin({no: () => {
+                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                    router.replace('/login');
+                }
+            });
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
                 headers: new Headers({
                     'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? ""
