@@ -77,7 +77,12 @@ export default function Detail() {
                     <br/>
                     <a onClick={async () => {
                         try{
-                            await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`)
+                            await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
+                                headers: new Headers({
+                                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                })
+                            })
                             window.localStorage.setItem("title", "");
                             window.localStorage.setItem("text", "");
                             window.localStorage.setItem("comment", "");

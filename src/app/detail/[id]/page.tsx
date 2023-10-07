@@ -4,25 +4,29 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {ConfirmModal} from "@/component/modal/confirmModal";
 
-export default function Detail({ params }: { params: { slug: string, id: string } }) {
-    const [isopen,setIsopen] = useState<boolean>(false);
+export default function Detail({params}: { params: { slug: string, id: string } }) {
+    const [isopen, setIsopen] = useState<boolean>(false);
     const router = useRouter();
-    const [title,setTitle] = useState<string>("");
-    const [text,setText] = useState<string>("");
-    const [comment,setComment] = useState<string>("");
-    const [rain,setRain] = useState<string>("");
-    const [walk,setWalk] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
+    const [text, setText] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
+    const [rain, setRain] = useState<string>("");
+    const [walk, setWalk] = useState<string>("");
     useEffect(() => {
-        const data = (async ()=>{
-            await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`)
-                .then(e=>e.json()).then(e=> {
-                    e=e.data;
-                    setTitle(e.title);
-                    setText(e.text);
-                    setComment(e.comment);
-                    setRain(e.rain);
-                    setWalk(e.walk);
-                });
+        const data = (async () => {
+            await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
+                headers: new Headers({
+                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(e => e.json()).then(e => {
+                e = e.data;
+                setTitle(e.title);
+                setText(e.text);
+                setComment(e.comment);
+                setRain(e.rain);
+                setWalk(e.walk);
+            });
         })()
     }, []);
 
@@ -54,19 +58,24 @@ export default function Detail({ params }: { params: { slug: string, id: string 
                     <a href={`/editor/${params.id}`}>수정</a>
                     <br/>
                     <br/>
-                    <a onClick={async ()=>{
+                    <a onClick={async () => {
                         setIsopen(true);
 
                     }}>삭제</a>
                 </div>
             </section>
-            {isopen && <ConfirmModal ok={async ()=>{
-                const data = await fetch(`https://deleteItem-dyvsvnnkwq-uc.a.run.app?id=${params.id}`);
-                if(data){
+            {isopen && <ConfirmModal ok={async () => {
+                const data = await fetch(`https://deleteItem-dyvsvnnkwq-uc.a.run.app?id=${params.id}`, {
+                    headers: new Headers({
+                        'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    })
+                });
+                if (data) {
                     router.back();
                 }
                 setIsopen(false);
-            }} no={()=>{
+            }} no={() => {
                 setIsopen(false);
             }}/>}
 

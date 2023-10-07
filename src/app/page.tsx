@@ -8,7 +8,12 @@ export default function Home() {
     const [time, setTime] = useState<string>();
     useEffect(()=>{
         (async ()=>{
-            await fetch("https://list-dyvsvnnkwq-uc.a.run.app/")
+            await fetch("https://list-dyvsvnnkwq-uc.a.run.app/", {
+                headers: new Headers({
+                    'AuthorizationCode': localStorage.getItem("AuthorizationCode") ?? "",
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            })
                 .then(e=>e.json()).then(e=>{
                     console.log(e.data);
                     setList(e.data as any[]);

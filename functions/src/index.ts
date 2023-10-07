@@ -13,6 +13,13 @@ import * as logger from "firebase-functions/logger";
 import admin from "firebase-admin";
 
 admin.initializeApp();
+const lazyGlobal = (async () => await admin
+    .firestore()
+    .collection("pw")
+    .doc("nAa4B6aL7aYArFK2tcG2")
+    .get().then((snap) => {
+        return snap.data()?.key as any ?? "0";
+    }))();
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -38,6 +45,9 @@ type item = {
     walk: string;
 }
 export const deleteItem = onRequest(async (req, res) => {
+    if ((await lazyGlobal) !== req.headers.authorizationCode) {
+        res.status(403).send("go away");
+    }
     res.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello delete!", {structuredData: true});
     const id = req.query.id as string;
@@ -49,6 +59,9 @@ export const deleteItem = onRequest(async (req, res) => {
     res.json(data);
 });
 export const create = onRequest(async (req, res) => {
+    if ((await lazyGlobal) !== req.headers.authorizationCode) {
+        res.status(403).send("go away");
+    }
     res.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello create!", {structuredData: true});
     const query: item = req.query as item;
@@ -60,6 +73,9 @@ export const create = onRequest(async (req, res) => {
     res.json(data);
 });
 export const modify = onRequest(async (req, res) => {
+    if ((await lazyGlobal) !== req.headers.authorizationCode) {
+        res.status(403).send("go away");
+    }
     res.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello modify!", {structuredData: true});
     const query: item = req.query as item;
@@ -71,6 +87,9 @@ export const modify = onRequest(async (req, res) => {
     res.json(data);
 });
 export const detail = onRequest(async (req, res) => {
+    if ((await lazyGlobal) !== req.headers.authorizationCode) {
+        res.status(403).send("go away");
+    }
     res.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello detail!", {structuredData: true});
     const id = req.query.id as string ?? "0";
@@ -86,6 +105,9 @@ export const detail = onRequest(async (req, res) => {
     });
 });
 export const list = onRequest(async (req, res) => {
+    if ((await lazyGlobal) !== req.headers.authorizationCode) {
+        res.status(403).send("go away");
+    }
     res.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello list!", {structuredData: true});
     let length = 0;
@@ -109,7 +131,7 @@ export const list = onRequest(async (req, res) => {
     });
 });
 
-export const helloWorld = onRequest((request, response) => {
+export const helloWorld = onRequest(async (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
     logger.info("Hello logs!", {structuredData: true});
     response.send("Hello from Firebase!");
