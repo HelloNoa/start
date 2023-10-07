@@ -1,5 +1,5 @@
 'use client';
-import styles from '@/app/page.module.scss'
+import styles from './page.module.scss'
 import {useState} from "react";
 import {useLogin} from "@/hook/useLogin";
 import {useRouter} from "next/navigation";
