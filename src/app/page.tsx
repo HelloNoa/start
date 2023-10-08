@@ -1,6 +1,6 @@
 'use client';
 import styles from './page.module.scss'
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useLogin} from "@/hook/useLogin";
 import {useRouter} from "next/navigation";
 
@@ -9,7 +9,7 @@ export default function Home() {
     const startTime = 1696274405648;
     const [list, setList] = useState<any[]>([]);
     const [time, setTime] = useState<string>();
-    const login = useLogin();
+    const login = useMemo(()=>useLogin,[useLogin]);
     useEffect(() => {
         (async () => {
             if (await login) {

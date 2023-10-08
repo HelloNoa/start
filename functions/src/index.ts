@@ -76,7 +76,7 @@ export const create = onRequest(async (req, res) => {
         res.status(201).send("go away");
     }
     logger.info("Hello create!", {structuredData: true});
-    const query: item = req.query as item;
+    const query: item = req.body as item;
     const data = await admin
         .firestore()
         .collection("list")

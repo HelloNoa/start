@@ -13,7 +13,7 @@ export default function Detail() {
     const [walk, setWalk] = useState<string>("");
     const login = useLogin();
     useEffect(() => {
-        (async ()=>{
+        (async () => {
             if (await login) {
 
             } else {
@@ -86,13 +86,19 @@ export default function Detail() {
                     <br/>
                     <br/>
                     <a onClick={async () => {
-                        try{
+                        try {
                             const headers = new Headers();
                             if (typeof window !== 'undefined') {
                                 headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
                             }
-                            await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
-                                headers
+                            // await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
+                            await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
+                                method:'post',
+                                headers,
+                                body: JSON.stringify({
+                                    key:new Date().getTime(),
+                                    title, text, comment, rain, walk
+                                }),
                             })
                             window.localStorage.setItem("title", "");
                             window.localStorage.setItem("text", "");
@@ -100,7 +106,7 @@ export default function Detail() {
                             window.localStorage.setItem("rain", "");
                             window.localStorage.setItem("walk", "");
                             router.back();
-                        }catch (e){
+                        } catch (e) {
                             console.log(e);
                         }
                     }}>발행</a>
