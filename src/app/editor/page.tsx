@@ -93,11 +93,15 @@ export default function Detail() {
                             }
                             // await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
                             await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
-                                method:'post',
+                                method: 'post',
                                 headers,
                                 body: JSON.stringify({
-                                    key:new Date().getTime(),
-                                    title, text, comment, rain, walk
+                                    key: new Date().getTime(),
+                                    title: title ?? "",
+                                    text: text ?? "",
+                                    comment: comment ?? "",
+                                    rain: rain ?? "",
+                                    walk: walk ?? ""
                                 }),
                             })
                             window.localStorage.setItem("title", "");
