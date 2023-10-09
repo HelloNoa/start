@@ -4,7 +4,7 @@ import {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useLogin} from "@/hook/useLogin";
 
-export default function Detail() {
+export default function Editor() {
     const router = useRouter();
     const [title, setTitle] = useState<string>("");
     const [text, setText] = useState<string>("");
@@ -92,28 +92,27 @@ export default function Detail() {
                                 headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
                                 headers.append('Content-Type', 'application/json');
                             }
-                            // await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
                             const body = JSON.stringify({
-                                key: new Date().getTime(),
+                                key: new Date().getTime().toString(),
                                 title: title ?? " ",
                                 text: text ?? " ",
                                 comment: comment ?? " ",
                                 rain: rain ?? " ",
                                 walk: walk ?? " "
                             });
-                            console.log(body);
-                            await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
+                            const data = await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
                                 method: 'POST',
                                 headers,
                                 body
-                            }).then(()=>{
-                                // window.localStorage.setItem("title", "");
-                                // window.localStorage.setItem("text", "");
-                                // window.localStorage.setItem("comment", "");
-                                // window.localStorage.setItem("rain", "");
-                                // window.localStorage.setItem("walk", "");
-                                // router.back();
-                            })
+                            }).then((e)=>e.text());
+                            if(data==="ok"){
+                                window.localStorage.setItem("title", "");
+                                window.localStorage.setItem("text", "");
+                                window.localStorage.setItem("comment", "");
+                                window.localStorage.setItem("rain", "");
+                                window.localStorage.setItem("walk", "");
+                                router.back();
+                            }
                         } catch (e) {
                             console.log(e);
                         }
