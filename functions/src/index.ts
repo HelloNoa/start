@@ -72,17 +72,22 @@ export const create = onRequest(async (req, res) => {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
+    logger.info("Hello create!", {structuredData: true});
     if ((await lazyGlobal) !== req.headers.authorization) {
         res.status(201).send("go away");
+    } else {
+        const query: item = req.body as item;
+        if (!query.key) {
+            res.send("no");
+        } else {
+            await admin
+                .firestore()
+                .collection("list")
+                .doc(query.key)
+                .set(query);
+            res.send("ok");
+        }
     }
-    logger.info("Hello create!", {structuredData: true});
-    const query: item = req.body as item;
-    const data = await admin
-        .firestore()
-        .collection("list")
-        .doc(query.key)
-        .set(query);
-    res.json(data);
 });
 export const modify = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
@@ -92,17 +97,22 @@ export const modify = onRequest(async (req, res) => {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
+    logger.info("Hello modify!", {structuredData: true});
     if ((await lazyGlobal) !== req.headers.authorization) {
         res.status(201).send("go away");
+    } else {
+        const query: item = req.body as item;
+        if (!query.key) {
+            res.send("no");
+        } else {
+            await admin
+                .firestore()
+                .collection("list")
+                .doc(query.key)
+                .set(query);
+            res.json("ok");
+        }
     }
-    logger.info("Hello modify!", {structuredData: true});
-    const query: item = req.query as item;
-    const data = await admin
-        .firestore()
-        .collection("list")
-        .doc(query.key ?? "")
-        .set(query);
-    res.json(data);
 });
 export const detail = onRequest(async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
@@ -149,7 +159,7 @@ export const list = onRequest(async (req, res) => {
             length = snap.size;
             snap.forEach((doc) => {
                 // 특정 필드의 값 가져오기
-                data.push({
+                data.unshift({
                     key: doc.data().key,
                     title: doc.data().title,
                 });

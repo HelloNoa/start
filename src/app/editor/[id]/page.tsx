@@ -99,12 +99,25 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                         const headers = new Headers();
                         if (typeof window !== 'undefined') {
                             headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+                            headers.append('Content-Type', 'application/json');
                         }
-                        await fetch(`https://modify-dyvsvnnkwq-uc.a.run.app?key=${params.id}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
-                            headers
+                        const body = JSON.stringify({
+                            key: new Date().getTime().toString(),
+                            title: title ?? " ",
+                            text: text ?? " ",
+                            comment: comment ?? " ",
+                            rain: rain ?? " ",
+                            walk: walk ?? " "
+                        });
+                        await fetch(`https://modify-dyvsvnnkwq-uc.a.run.app`, {
+                            method: 'POST',
+                            headers,
+                            body
                         })
-                            .then(e => e.json()).then(e => {
-                                console.log(e)
+                            .then(e => e.text()).then(e => {
+                                if(e==='ok'){
+                                    router.refresh();
+                                }
                             })
                         router.back();
                     }}>수정완료</a>
