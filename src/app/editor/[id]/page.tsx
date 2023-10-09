@@ -1,6 +1,6 @@
 "use client";
 import styles from './page.module.scss'
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useLogin} from "@/hook/useLogin";
 
@@ -11,7 +11,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
     const [comment, setComment] = useState<string>("");
     const [rain, setRain] = useState<string>("");
     const [walk, setWalk] = useState<string>("");
-    const login = useLogin();
+    const login = useMemo(() => useLogin, [useLogin]);
     useEffect(() => {
         const data = (async () => {
             if (await login) {

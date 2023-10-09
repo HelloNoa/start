@@ -1,6 +1,6 @@
 "use client";
 import styles from './page.module.scss'
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useLogin} from "@/hook/useLogin";
 
@@ -11,7 +11,7 @@ export default function Detail() {
     const [comment, setComment] = useState<string>("");
     const [rain, setRain] = useState<string>("");
     const [walk, setWalk] = useState<string>("");
-    const login = useLogin();
+    const login = useMemo(() => useLogin, [useLogin]);
     useEffect(() => {
         (async () => {
             if (await login) {
@@ -90,26 +90,30 @@ export default function Detail() {
                             const headers = new Headers();
                             if (typeof window !== 'undefined') {
                                 headers.append('Authorization', window.localStorage.getItem("Authorization") ?? "");
+                                headers.append('Content-Type', 'application/json');
                             }
                             // await fetch(`https://create-dyvsvnnkwq-uc.a.run.app?key=${new Date().getTime()}&title=${title}&text=${text}&comment=${comment}&rain=${rain}&walk=${walk}`, {
+                            const body = JSON.stringify({
+                                key: new Date().getTime(),
+                                title: title ?? " ",
+                                text: text ?? " ",
+                                comment: comment ?? " ",
+                                rain: rain ?? " ",
+                                walk: walk ?? " "
+                            });
+                            console.log(body);
                             await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
-                                method: 'post',
+                                method: 'POST',
                                 headers,
-                                body: JSON.stringify({
-                                    key: new Date().getTime(),
-                                    title: title ?? "",
-                                    text: text ?? "",
-                                    comment: comment ?? "",
-                                    rain: rain ?? "",
-                                    walk: walk ?? ""
-                                }),
+                                body
+                            }).then(()=>{
+                                // window.localStorage.setItem("title", "");
+                                // window.localStorage.setItem("text", "");
+                                // window.localStorage.setItem("comment", "");
+                                // window.localStorage.setItem("rain", "");
+                                // window.localStorage.setItem("walk", "");
+                                // router.back();
                             })
-                            window.localStorage.setItem("title", "");
-                            window.localStorage.setItem("text", "");
-                            window.localStorage.setItem("comment", "");
-                            window.localStorage.setItem("rain", "");
-                            window.localStorage.setItem("walk", "");
-                            router.back();
                         } catch (e) {
                             console.log(e);
                         }

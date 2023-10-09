@@ -80,7 +80,7 @@ export const create = onRequest(async (req, res) => {
     const data = await admin
         .firestore()
         .collection("list")
-        .doc(query.key ?? "")
+        .doc(query.key)
         .set(query);
     res.json(data);
 });
