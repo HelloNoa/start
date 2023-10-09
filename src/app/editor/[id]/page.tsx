@@ -102,7 +102,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
                             headers.append('Content-Type', 'application/json');
                         }
                         const body = JSON.stringify({
-                            key: new Date().getTime().toString(),
+                            key: params.id,
                             title: title ?? " ",
                             text: text ?? " ",
                             comment: comment ?? " ",
