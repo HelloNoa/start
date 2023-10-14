@@ -16,7 +16,7 @@ export default function Detail({params}: { params: { slug: string, id: string } 
     const login = useMemo(() => useLogin, [useLogin]);
     useEffect(() => {
         const data = (async () => {
-            if (await login) {
+            if (await login()) {
 
             } else {
                 alert("당신의 신원을 먼저 밝히는게 좋겠어요.");

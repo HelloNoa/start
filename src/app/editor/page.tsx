@@ -14,7 +14,7 @@ export default function Editor() {
     const login = useMemo(() => useLogin, [useLogin]);
     useEffect(() => {
         (async () => {
-            if (await login) {
+            if (await login()) {
 
             } else {
                 alert("당신의 신원을 먼저 밝히는게 좋겠어요.");

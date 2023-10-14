@@ -17,7 +17,7 @@ export default function Login() {
                 if (typeof window !== 'undefined') {
                     window.localStorage.setItem("Authorization", pw as string);
                 }
-                if (await login) {
+                if (await login()) {
                     alert("환영해요.");
                     router.push('/');
                 } else {
