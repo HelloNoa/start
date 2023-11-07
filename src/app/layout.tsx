@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
-}: {
+                                     children,
+                                   }: {
   children: React.ReactNode
 }) {
   return (
@@ -22,7 +22,7 @@ export default function RootLayout({
       <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap"
             rel="stylesheet"/>
     </head>
-      <body className={inter.className}>{children}</body>
+    <body className={inter.className}>{children}</body>
     </html>
   )
 }
