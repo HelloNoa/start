@@ -29,6 +29,11 @@ export default function Detail({params}: { params: { slug: string, id: string } 
             await fetch(`https://detail-dyvsvnnkwq-uc.a.run.app/?id=${params.id}`, {
                 headers
             }).then(e => e.json()).then(e => {
+                if(e.msg==="go away"){
+                    alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
+                    router.replace('/login');
+                    return false;
+                }
                 e = e.data;
                 setTitle(e.title);
                 setText(e.text);

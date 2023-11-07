@@ -1,13 +1,13 @@
 'use client';
 import styles from './page.module.scss'
 import {useMemo, useState} from "react";
-import {useLogin} from "@/hook/useLogin";
+import { useFirstLogin } from "@/hook/useLogin";
 import {useRouter} from "next/navigation";
 
 export default function Login() {
     const router = useRouter();
     const [pw, setPW] = useState<string>("");
-    const login = useMemo(() => useLogin, [useLogin]);
+    const login = useMemo(() => useFirstLogin, [useFirstLogin]);
     return (
         <main className={styles.main}>
             <input onChange={(e) => {
