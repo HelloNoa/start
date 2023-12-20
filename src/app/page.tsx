@@ -48,7 +48,7 @@ export default function Home() {
       <h1>{time}</h1>
       <ul>
         {list.map(e => {
-          return <li key={e.key}><a href={`/detail/${e.key}`}>{e.title}</a></li>
+          return <li key={e.key}><a href={`/detail/${e.key}`}>{e.title ?? "제목 없음"}</a></li>
         })}
       </ul>
       <a href={"/editor"}>글쓰기</a>
