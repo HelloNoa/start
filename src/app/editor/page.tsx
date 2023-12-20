@@ -100,7 +100,7 @@ export default function Editor() {
                 rain: rain ?? " ",
                 walk: walk ?? " "
               });
-              const { data } = await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
+              const data = await fetch(`https://create-dyvsvnnkwq-uc.a.run.app`, {
                 method: 'POST',
                 headers,
                 body
@@ -111,7 +111,7 @@ export default function Editor() {
                 window.localStorage.setItem("comment", "");
                 window.localStorage.setItem("rain", "");
                 window.localStorage.setItem("walk", "");
-                router.back();
+                router.replace('/');
               } else {
                 alert("당신의 신원을 먼저 밝히는게 좋겠어요.");
                 router.replace('/login');
