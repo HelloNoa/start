@@ -52,7 +52,11 @@ export default function Home() {
       <br/>
       <ul>
         {list.map(e => {
-          return <li key={e.key}><a href={`/detail/${e.key}`}>{e.title.trim().length === 0 ? "제목 없음" : e.title}</a></li>
+          const leftTime = new Date().getTime() - Number(e.key);
+          const isNew = (leftTime / 1000 / 60 / 60 / 24) < 1;
+          return <li className={isNew ? styles.new : ''} key={e.key}>
+            <a href={`/detail/${e.key}`}>{e.title.trim().length === 0 ? "제목 없음" : e.title}</a>
+          </li>;
         })}
       </ul>
     </main>
