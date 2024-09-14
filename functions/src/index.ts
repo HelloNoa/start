@@ -151,18 +151,32 @@ export const list = onRequest(async (req, res) => {
   }
   logger.info("Hello list!", { structuredData: true });
   let length = 0;
-  const data: { key: string, title: string }[] = [];
+  // const data: { key: string, title: string }[] = [];
+  const data: any[] = [];
   await admin
     .firestore()
     .collection("list")
     .get().then((snap) => {
       length = snap.size;
+
+      // length = snap.size;
+      // return snap.data() as item;
       snap.forEach((doc) => {
         // 특정 필드의 값 가져오기
+        // data.unshift({
+        //   key: doc.data().key,
+        //   title: doc.data().title,
+        // });
         data.unshift({
           key: doc.data().key,
           title: doc.data().title,
+          text: doc.data().text,
+          comment: doc.data().comment,
+          rain: doc.data().rain,
+          walk: doc.data().walk,
         });
+
+        return data;
       });
     });
   res.json({
